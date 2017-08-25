@@ -30,22 +30,35 @@ namespace DevUCSharpChallenge5
             int differenceBetweenDates = timeBetweenAssignments.Days;
 
             DateTime newAssignmentEndDate = newAssignmentEndDateCalendar.SelectedDate;
-            TimeSpan newAssignmentDuration = newAssignmentStartDate.Subtract(newAssignmentEndDate);
+            TimeSpan newAssignmentDuration = newAssignmentEndDate.Subtract(newAssignmentStartDate);
             int lengthOfNewAssignment = newAssignmentDuration.Days;
 
-            if (differenceBetweenDates >= 14)
+            if (newAssignmentEndDate < newAssignmentStartDate)
             {
-                resultsLabel.Text = "business logic";
+                resultsLabel.Text = "Error: Your mission projected end date was before your projected start date.";
+                previousAssignmentEndDateCalendar.SelectedDate = DateTime.Now.Date;
+                newAssignmentStartDateCalendar.SelectedDate = DateTime.Now.AddDays(14).Date;
+                newAssignmentEndDateCalendar.SelectedDate = DateTime.Now.AddDays(21).Date;
+
             }
-            else
+            if (!(differenceBetweenDates >= 14))
             {
                 newAssignmentStartDateCalendar.SelectedDate = DateTime.Now.AddDays(14).Date;
                 resultsLabel.Text = "Error: You must allow at least two weeks between " +
                     "the previous assignment and new assignment.";
             }
-            //
-
-            //int spyFee = (//days * 500 bouns of 1000 if over 21 days )
+            else
+            {
+                int daysFee = (lengthOfNewAssignment * 500);
+                if (lengthOfNewAssignment >= 21)
+                {
+                    daysFee = ((lengthOfNewAssignment * 500) + 1000);
+                }
+                string result = string.Format("This mission will cost: {0:C}"
+                    , daysFee);
+                resultsLabel.Text = result;
+            }
+            string test = "test";
         }
     }
 }
