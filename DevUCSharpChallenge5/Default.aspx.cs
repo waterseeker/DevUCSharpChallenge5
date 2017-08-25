@@ -33,13 +33,13 @@ namespace DevUCSharpChallenge5
             TimeSpan newAssignmentDuration = newAssignmentEndDate.Subtract(newAssignmentStartDate);
             int lengthOfNewAssignment = newAssignmentDuration.Days;
 
-            if (newAssignmentEndDate < newAssignmentStartDate)
+            if (lengthOfNewAssignment <= 0)
             {
-                resultsLabel.Text = "Error: Your mission projected end date was before your projected start date.";
+                resultsLabel.Text = "Error: Your mission must last at least one day.";
                 previousAssignmentEndDateCalendar.SelectedDate = DateTime.Now.Date;
                 newAssignmentStartDateCalendar.SelectedDate = DateTime.Now.AddDays(14).Date;
                 newAssignmentEndDateCalendar.SelectedDate = DateTime.Now.AddDays(21).Date;
-
+                return;
             }
             if (!(differenceBetweenDates >= 14))
             {
@@ -54,11 +54,13 @@ namespace DevUCSharpChallenge5
                 {
                     daysFee = ((lengthOfNewAssignment * 500) + 1000);
                 }
-                string result = string.Format("This mission will cost: {0:C}"
-                    , daysFee);
+                string result = string.Format("Assignment of {0} to mission {1} is authorized. <br />" +
+                    "Budget total: {2:C}"
+                    , spyCodeNameTextBox.Text,
+                    assignmentNameTextBox.Text,
+                    daysFee);
                 resultsLabel.Text = result;
             }
-            string test = "test";
         }
     }
 }
