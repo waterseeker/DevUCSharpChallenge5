@@ -28,14 +28,20 @@ namespace DevUCSharpChallenge5
             DateTime previousAssignmentEndDate = previousAssignmentEndDateCalendar.SelectedDate;
             TimeSpan timeBetweenAssignments = newAssignmentStartDate.Subtract(previousAssignmentEndDate);
             int differenceBetweenDates = timeBetweenAssignments.Days;
-            
+
+            DateTime newAssignmentEndDate = newAssignmentEndDateCalendar.SelectedDate;
+            TimeSpan newAssignmentDuration = newAssignmentStartDate.Subtract(newAssignmentEndDate);
+            int lengthOfNewAssignment = newAssignmentDuration.Days;
+
             if (differenceBetweenDates >= 14)
             {
                 resultsLabel.Text = "business logic";
             }
             else
             {
-                resultsLabel.Text = "Error: Must allow at least two weeks between previous assignment and new assignment";
+                newAssignmentStartDateCalendar.SelectedDate = DateTime.Now.AddDays(14).Date;
+                resultsLabel.Text = "Error: You must allow at least two weeks between " +
+                    "the previous assignment and new assignment.";
             }
             //
 
