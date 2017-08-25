@@ -24,7 +24,22 @@ namespace DevUCSharpChallenge5
 
         protected void assignSpyButton_Click(object sender, EventArgs e)
         {
+            DateTime newAssignmentStartDate = newAssignmentStartDateCalendar.SelectedDate;
+            DateTime previousAssignmentEndDate = previousAssignmentEndDateCalendar.SelectedDate;
+            TimeSpan timeBetweenAssignments = newAssignmentStartDate.Subtract(previousAssignmentEndDate);
+            int differenceBetweenDates = timeBetweenAssignments.Days;
+            
+            if (differenceBetweenDates >= 14)
+            {
+                resultsLabel.Text = "business logic";
+            }
+            else
+            {
+                resultsLabel.Text = "Error: Must allow at least two weeks between previous assignment and new assignment";
+            }
+            //
 
+            //int spyFee = (//days * 500 bouns of 1000 if over 21 days )
         }
     }
 }
